@@ -1,5 +1,4 @@
 import { Footer } from '@/components';
-import { login } from '@/services/ant-design-pro/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import {
   AlipayCircleOutlined,
@@ -9,21 +8,18 @@ import {
   UserOutlined,
   WeiboCircleOutlined,
 } from '@ant-design/icons';
-import {
-  LoginForm,
-  ProFormCaptcha,
-  ProFormCheckbox,
-  ProFormText,
-} from '@ant-design/pro-components';
+import {LoginForm, ProFormCaptcha, ProFormCheckbox, ProFormText,} from '@ant-design/pro-components';
 import { Helmet, history, useModel } from '@umijs/max';
-import { Alert, Tabs, message } from 'antd';
-import { createStyles } from 'antd-style';
+import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
-import { flushSync } from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
-const useStyles = createStyles(({ token }) => {
-  return {
-    action: {
+import { userLoginUsingPost } from '@/services/ccapi-backend/userController';
+import { useEmotionCss } from '@ant-design/use-emotion-css';
+import styles = module;
+
+const ActionIcons = () => {
+  const langClassName = useEmotionCss(({ token }) => {
+    return {
       marginLeft: '8px',
       color: 'rgba(0, 0, 0, 0.2)',
       fontSize: '24px',
@@ -33,8 +29,23 @@ const useStyles = createStyles(({ token }) => {
       '&:hover': {
         color: token.colorPrimaryActive,
       },
-    },
-    lang: {
+    };
+  });
+  return (
+    <>
+      <AlipayCircleOutlined key="AlipayCircleOutlined" className={langClassName} />
+      <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={langClassName} />
+      <WeiboCircleOutlined key="WeiboCircleOutlined" className={langClassName} />
+    </>
+  );
+};
+
+
+
+
+const Lang = () => {
+  useEmotionCss(({ token }) => {
+    return {
       width: 42,
       height: 42,
       lineHeight: '42px',
@@ -44,32 +55,11 @@ const useStyles = createStyles(({ token }) => {
       ':hover': {
         backgroundColor: token.colorBgTextHover,
       },
-    },
-    container: {
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100vh',
-      overflow: 'auto',
-      backgroundImage:
-        "url('https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr')",
-      backgroundSize: '100% 100%',
-    },
-  };
-});
-const ActionIcons = () => {
-  const { styles } = useStyles();
-  return (
-    <>
-      <AlipayCircleOutlined key="AlipayCircleOutlined" className={styles.action} />
-      <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={styles.action} />
-      <WeiboCircleOutlined key="WeiboCircleOutlined" className={styles.action} />
-    </>
-  );
-};
-const Lang = () => {
-  const { styles } = useStyles();
+    };
+  });
   return;
 };
+
 const LoginMessage: React.FC<{
   content: string;
 }> = ({ content }) => {
@@ -84,46 +74,37 @@ const LoginMessage: React.FC<{
     />
   );
 };
+
+
 const Login: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
-  const { styles } = useStyles();
-  const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
-    if (userInfo) {
-      flushSync(() => {
-        setInitialState((s) => ({
-          ...s,
-          currentUser: userInfo,
-        }));
-      });
-    }
-  };
-  const handleSubmit = async (values: API.LoginParams) => {
+
+
+
+  const handleSubmit = async (values: API.UserLoginRequest) => {
     try {
       // 登录
-      const msg = await login({
-        ...values,
-        type,
+      const res = await userLoginUsingPost({
+        ...values
       });
-      if (msg.status === 'ok') {
-        const defaultLoginSuccessMessage = '登录成功！';
-        message.success(defaultLoginSuccessMessage);
-        await fetchUserInfo();
+      if (res.data) {
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');
+        setInitialState({
+          loginUser: res.data
+        });
         return;
       }
-      console.log(msg);
-      // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
+
     } catch (error) {
       const defaultLoginFailureMessage = '登录失败，请重试！';
       console.log(error);
       message.error(defaultLoginFailureMessage);
     }
   };
+
   const { status, type: loginType } = userLoginState;
   return (
     <div className={styles.container}>
@@ -152,7 +133,7 @@ const Login: React.FC = () => {
           }}
           actions={['其他登录方式 :', <ActionIcons key="icons" />]}
           onFinish={async (values) => {
-            await handleSubmit(values as API.LoginParams);
+            await handleSubmit(values as API.UserLoginRequest);
           }}
         >
           <Tabs
@@ -177,7 +158,7 @@ const Login: React.FC = () => {
           {type === 'account' && (
             <>
               <ProFormText
-                name="username"
+                name="userAccount"
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined />,
@@ -191,7 +172,7 @@ const Login: React.FC = () => {
                 ]}
               />
               <ProFormText.Password
-                name="password"
+                name="userPassword"
                 fieldProps={{
                   size: 'large',
                   prefix: <LockOutlined />,

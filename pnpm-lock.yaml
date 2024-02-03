@@ -11,6 +11,9 @@ dependencies:
   '@ant-design/pro-components':
     specifier: ^2.6.48
     version: 2.6.48(antd@5.13.2)(rc-field-form@1.41.0)(react-dom@18.2.0)(react@18.2.0)
+  '@ant-design/use-emotion-css':
+    specifier: ^1.0.4
+    version: 1.0.4(antd@5.13.2)(react-dom@18.2.0)(react@18.2.0)
   '@umijs/route-utils':
     specifier: ^2.2.2
     version: 2.2.2
@@ -861,6 +864,19 @@ packages:
       react: 18.2.0
       resize-observer-polyfill: 1.5.1
       throttle-debounce: 5.0.0
+
+  /@ant-design/use-emotion-css@1.0.4(antd@5.13.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-PekXeeHCpSNi6ziV62gy2Yy2MijssiVMaCJbbyOmPbeZJYQmB4FecJwlB+e2WuIbSHQdM3O9pyN4Cx3GJKxJkA==}
+    peerDependencies:
+      antd: '>=5.0.0'
+      react: '>=17.0.0'
+      react-dom: '>=17.0.0'
+    dependencies:
+      '@emotion/css': 11.11.2
+      antd: 5.13.2(moment@2.30.1)(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /@antfu/install-pkg@0.1.1:
     resolution: {integrity: sha512-LyB/8+bSfa0DFGC06zpCEfs89/XoWZwws5ygEa5D+Xsm3OfI+aXQ86VgVG7Acyef+rSZ5HE7J8rrxzrQeM3PjQ==}
@@ -4432,7 +4448,7 @@ packages:
     peerDependencies:
       react: '>=16.3.0'
     dependencies:
-      '@babel/runtime': 7.23.6
+      '@babel/runtime': 7.23.8
       hoist-non-react-statics: 3.3.2
       react: 18.1.0
       react-is: 16.13.1
@@ -4444,7 +4460,7 @@ packages:
     peerDependencies:
       react: '>=16.3.0'
     dependencies:
-      '@babel/runtime': 7.23.6
+      '@babel/runtime': 7.23.8
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
       react-is: 16.13.1
@@ -5561,7 +5577,7 @@ packages:
       '@types/history': 4.7.11
       '@types/react': 18.2.48
       '@types/react-router': 5.1.20
-      redux: 3.7.2
+      redux: 4.2.1
     dev: true
 
   /@types/react-router@5.1.20:
@@ -6209,6 +6225,7 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -6218,6 +6235,7 @@ packages:
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
     requiresBuild: true
     dev: true
     optional: true
@@ -6227,6 +6245,7 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -6236,6 +6255,7 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
     requiresBuild: true
     dev: true
     optional: true
@@ -6316,7 +6336,7 @@ packages:
   /@umijs/history@5.3.1:
     resolution: {integrity: sha512-/e0cEGrR2bIWQD7pRl3dl9dcyRGeC9hoW0OCvUTT/hjY0EfUrkd6G8ZanVghPMpDuY5usxq9GVcvrT8KNXLWvA==}
     dependencies:
-      '@babel/runtime': 7.23.6
+      '@babel/runtime': 7.23.8
       query-string: 6.14.1
     dev: true
 
@@ -7752,7 +7772,7 @@ packages:
   /babel-plugin-macros@2.6.1:
     resolution: {integrity: sha512-6W2nwiXme6j1n2erPOnmRiWfObUhWH7Qw1LMi9XZy8cj+KtESu3T6asZvtk5bMQQjX8te35o7CFueiSdL/2NmQ==}
     dependencies:
-      '@babel/runtime': 7.4.5
+      '@babel/runtime': 7.23.8
       cosmiconfig: 5.2.1
       resolve: 1.22.8
     dev: true
@@ -13785,6 +13805,7 @@ packages:
     engines: {node: '>= 12.0.0'}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -13794,6 +13815,7 @@ packages:
     engines: {node: '>= 12.0.0'}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
     requiresBuild: true
     dev: true
     optional: true
@@ -13803,6 +13825,7 @@ packages:
     engines: {node: '>= 12.0.0'}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
     requiresBuild: true
     dev: true
     optional: true
@@ -13812,6 +13835,7 @@ packages:
     engines: {node: '>= 12.0.0'}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
     requiresBuild: true
     dev: true
     optional: true
