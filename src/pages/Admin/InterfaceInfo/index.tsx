@@ -39,7 +39,8 @@ const TableList: React.FC = () => {
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.InterfaceInfo>();
-  const [selectedRowsState, setSelectedRows] = useState<API.RuleListItem[]>([]);
+  const [selectedRowsState, setSelectedRows] = useState<API.InterfaceInfo[]>([]);
+
   /**
    * @en-US Add node
    * @zh-CN 添加节点
@@ -74,9 +75,13 @@ const TableList: React.FC = () => {
    * @param fields
    */
   const handleUpdate = async (fields: API.InterfaceInfoUpdateRequest) => {
+    if(!currentRow){
+      return ;
+    }
     const hide = message.loading('修改中');
     try {
       await updateInterfaceInfoUsingPost({
+        id: currentRow.id,
         ...fields
       });
       hide();
@@ -192,17 +197,17 @@ const TableList: React.FC = () => {
     {
       title: '请求参数',
       dataIndex: 'requestParams',
-      valueType: 'textarea',
+      valueType: 'jsonCode',
     },
     {
       title: '请求头',
       dataIndex: 'requestHeader',
-      valueType: 'text',
+      valueType: 'jsonCode',
     },
     {
       title: '响应头',
       dataIndex: 'responseHeader',
-      valueType: 'textarea',
+      valueType: 'jsonCode',
     },
 
     {

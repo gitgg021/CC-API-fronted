@@ -144,6 +144,7 @@ declare namespace API {
     method?: string;
     name?: string;
     requestHeader?: string;
+    requestParams?: string;
     responseHeader?: string;
     status?: number;
     updateTime?: string;
