@@ -1,7 +1,7 @@
 import type {ProColumns, ProFormInstance} from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
+import {ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
-import { Modal } from 'antd';
+import {Modal} from 'antd';
 import React, {createRef, useEffect, useRef} from 'react';
 
 export type Props = {
@@ -13,7 +13,7 @@ export type Props = {
 };
 
 const UpdateModal: React.FC<Props> = (props) => {
-  const { values, visible, columns, onCancel, onSubmit } = props;
+  const {values, visible, columns, onCancel, onSubmit} = props;
 
   const formRef = useRef<ProFormInstance>();
 

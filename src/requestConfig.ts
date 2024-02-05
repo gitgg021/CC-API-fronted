@@ -1,6 +1,6 @@
-﻿import type { RequestOptions } from '@@/plugin-request/request';
-import type { RequestConfig } from '@umijs/max';
-import { message, notification } from 'antd';
+﻿import type {RequestOptions} from '@@/plugin-request/request';
+import type {RequestConfig} from '@umijs/max';
+import {message, notification} from 'antd';
 
 
 // 与后端约定的响应数据格式
@@ -21,13 +21,12 @@ interface ResponseStructure {
 export const requestConfig: RequestConfig = {
 
 
-
   // 请求拦截器
   requestInterceptors: [
     (config: RequestOptions) => {
       // 拦截请求配置，进行个性化处理。
       const url = config?.url?.concat('?token = 123');
-      return { ...config, url };
+      return {...config, url};
     },
   ],
 
@@ -35,7 +34,7 @@ export const requestConfig: RequestConfig = {
   responseInterceptors: [
     (response) => {
       // 拦截响应数据，进行个性化处理
-      const { data } = response as unknown as ResponseStructure;
+      const {data} = response as unknown as ResponseStructure;
 
       if (data?.code !== 0) {
         throw new Error(data.message);

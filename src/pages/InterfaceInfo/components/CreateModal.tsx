@@ -1,7 +1,7 @@
-import type { ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
+import type {ProColumns} from '@ant-design/pro-components';
+import {ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
-import { Modal } from 'antd';
+import {Modal} from 'antd';
 import React from 'react';
 
 export type Props = {
@@ -12,7 +12,7 @@ export type Props = {
 };
 
 const CreateModal: React.FC<Props> = (props) => {
-  const { visible, columns, onCancel, onSubmit } = props;
+  const {visible, columns, onCancel, onSubmit} = props;
 
   return (
     <Modal visible={visible} footer={null} onCancel={() => onCancel?.()}>

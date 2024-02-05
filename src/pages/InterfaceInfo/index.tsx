@@ -1,5 +1,5 @@
-import { PlusOutlined } from '@ant-design/icons';
-import type { ActionType, ProColumns, ProDescriptionsItemProps } from '@ant-design/pro-components';
+import {PlusOutlined} from '@ant-design/icons';
+import type {ActionType, ProColumns, ProDescriptionsItemProps} from '@ant-design/pro-components';
 import {
   FooterToolbar,
   ModalForm,
@@ -10,8 +10,8 @@ import {
   ProTable,
 } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Button, Drawer, Input, message } from 'antd';
-import React, { useRef, useState } from 'react';
+import {Button, Drawer, Input, message} from 'antd';
+import React, {useRef, useState} from 'react';
 import {SortOrder} from "antd/es/table/interface";
 import {
   addInterfaceInfoUsingPost, deleteInterfaceInfoUsingPost,
@@ -20,7 +20,6 @@ import {
 import CreateModal from "@/pages/InterfaceInfo/components/CreateModal";
 import {getInitialState} from "@/app";
 import UpdateModal from "@/pages/InterfaceInfo/components/UpdateModal";
-
 
 
 const TableList: React.FC = () => {
@@ -59,9 +58,9 @@ const TableList: React.FC = () => {
       handleModalOpen(false);
 
       return true;
-    } catch (error:any) {
+    } catch (error: any) {
       hide();
-      message.error('创建失败'+error.message);
+      message.error('创建失败' + error.message);
       return false;
     }
   };
@@ -97,15 +96,15 @@ const TableList: React.FC = () => {
     if (!record) return true;
     try {
       await deleteInterfaceInfoUsingPost({
-        id:record.id,
+        id: record.id,
       });
       hide();
       message.success('删除成功');
       actionRef.current?.reload();
       return true;
-    } catch (error:any) {
+    } catch (error: any) {
       hide();
-      message.error('删除失败'+error.message);
+      message.error('删除失败' + error.message);
       return false;
     }
   };
@@ -114,7 +113,7 @@ const TableList: React.FC = () => {
    * @zh-CN 国际化配置
    * */
 
-  const columns: ProColumns<API.RuleListItem>[] = [
+  const columns: ProColumns<API.InterfaceInfo>[] = [
     {
       title: 'id',
       dataIndex: 'id',
@@ -183,13 +182,13 @@ const TableList: React.FC = () => {
       title: '更新时间',
       dataIndex: 'updateTime',
       valueType: 'dateTime',
-      hideInForm:true,
+      hideInForm: true,
     },
     {
       title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'dateTime',
-      hideInForm:true,
+      hideInForm: true,
     },
     {
       title: '操作',
@@ -233,21 +232,21 @@ const TableList: React.FC = () => {
               handleModalOpen(true);
             }}
           >
-            <PlusOutlined /> 新建
+            <PlusOutlined/> 新建
           </Button>,
         ]}
-        request={async (params,sort: React<string,SortOrder>, filter:Record<string, React.ReactText[] | null>) =>{
+        request={async (params, sort: React<string, SortOrder>, filter: Record<string, React.ReactText[] | null>) => {
           const res: any = await listInterfaceInfoByPageUsingGet({
             ...params
           })
-          if (res.data){
-            return{
+          if (res.data) {
+            return {
               data: res.data.records || [],
               success: true,
               total: res.data.total || 0,
             }
-          }else {
-            return{
+          } else {
+            return {
               data: [],
               success: false,
               total: 0,
@@ -317,7 +316,7 @@ const TableList: React.FC = () => {
           width="md"
           name="name"
         />
-        <ProFormTextArea width="md" name="desc" />
+        <ProFormTextArea width="md" name="desc"/>
       </ModalForm>
       <UpdateModal
         columns={columns}
@@ -364,7 +363,11 @@ const TableList: React.FC = () => {
           />
         )}
       </Drawer>
-      <CreateModal columns={columns} onCancel={() =>{handleModalOpen(false)}} onSubmit={(values) =>{handleAdd(values)}} visible={createModalOpen}/>
+      <CreateModal columns={columns} onCancel={() => {
+        handleModalOpen(false)
+      }} onSubmit={(values) => {
+        handleAdd(values)
+      }} visible={createModalOpen}/>
     </PageContainer>
   );
 };
