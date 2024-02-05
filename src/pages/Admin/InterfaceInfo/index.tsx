@@ -15,11 +15,14 @@ import React, {useRef, useState} from 'react';
 import {SortOrder} from "antd/es/table/interface";
 import {
   addInterfaceInfoUsingPost, deleteInterfaceInfoUsingPost,
-  listInterfaceInfoByPageUsingGet, updateInterfaceInfoUsingPost
+  listInterfaceInfoByPageUsingGet, updateInterfaceInfoUsingPost,
+  offlineInterfaceInfoUsingPost,
+  onlineInterfaceInfoUsingPost,
+
 } from "@/services/ccapi-backend/interfaceInfoController";
-import CreateModal from "@/pages/InterfaceInfo/components/CreateModal";
+import CreateModal from "@/pages/Admin/InterfaceInfo/components/CreateModal";
 import {getInitialState} from "@/app";
-import UpdateModal from "@/pages/InterfaceInfo/components/UpdateModal";
+import UpdateModal from "@/pages/Admin/InterfaceInfo/components/UpdateModal";
 
 
 const TableList: React.FC = () => {
@@ -85,6 +88,53 @@ const TableList: React.FC = () => {
       return false;
     }
   };
+
+  /**
+   * 发布接口
+   *
+   * @param record
+   */
+  const handleOnline = async (record: API.IdRequest) => {
+    const hide = message.loading('发布中');
+    if (!record) return true;
+    try {
+      await onlineInterfaceInfoUsingPost({
+        id: record.id
+      });
+      hide();
+      message.success('操作成功');
+      actionRef.current?.reload();
+      return true;
+    } catch (error: any) {
+      hide();
+      message.error('操作失败，' + error.message);
+      return false;
+    }
+  };
+
+  /**
+   * 下线接口
+   *
+   * @param record
+   */
+  const handleOffline = async (record: API.IdRequest) => {
+    const hide = message.loading('发布中');
+    if (!record) return true;
+    try {
+      await offlineInterfaceInfoUsingPost({
+        id: record.id
+      });
+      hide();
+      message.success('操作成功');
+      actionRef.current?.reload();
+      return true;
+    } catch (error: any) {
+      hide();
+      message.error('操作失败，' + error.message);
+      return false;
+    }
+  };
+
   /**
    *  Delete node
    * @zh-CN 删除节点
@@ -204,14 +254,42 @@ const TableList: React.FC = () => {
         >
           修改
         </a>,
-        <a
+
+
+
+        record.status === 0 ? <a
           key="config"
           onClick={() => {
-            handleRemove(record);
+            handleOnline(record);
+          }}
+        >
+          发布
+        </a> : null,
+
+        record.status === 1 ?<Button
+          type="text"
+          danger
+          key="config"
+          onClick={() => {
+            handleOffline(true);
+            setCurrentRow(record);
+          }}
+        >
+          下线
+        </Button>  : null,
+
+        <Button
+          type="text"
+          danger
+          key="config"
+          onClick={() => {
+            handleUpdateModalOpen(true);
+            setCurrentRow(record);
           }}
         >
           删除
-        </a>,
+        </Button>,
+
       ],
     },
   ];

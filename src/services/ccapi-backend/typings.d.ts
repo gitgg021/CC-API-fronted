@@ -89,6 +89,18 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseobject = {
+    code?: number;
+    data?: Record<string, any>;
+    message?: string;
+  };
+
+  type IdRequest = {
+    id?: number;
+  };
+
+
+
   type checkUsingGETParams = {
     /** echostr */
     echostr?: string;
@@ -148,6 +160,9 @@ declare namespace API {
     responseHeader?: string;
     url?: string;
   };
+
+
+
 
   type InterfaceInfoUpdateRequest = {
     description?: string;
