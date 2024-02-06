@@ -136,6 +136,12 @@ declare namespace API {
     id?: number;
   };
 
+  type InterfaceInfoInvokeRequest = {
+    id?: number;
+    userRequestParams?: string;
+  };
+
+
   type InterfaceInfo = {
     createTime?: string;
     description?: string;

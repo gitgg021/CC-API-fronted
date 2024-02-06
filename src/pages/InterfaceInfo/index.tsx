@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {Button, Card, Descriptions, Form, message, Input, Spin, Divider} from 'antd';
 import {
   getInterfaceInfoByIdUsingGet,
-/*  invokeInterfaceInfoUsingPost,*/
+ invokeInterfaceInfoUsingPost
 } from '@/services/ccapi-backend/interfaceInfoController';
 import { useParams } from '@@/exports';
 /**
