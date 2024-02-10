@@ -17,6 +17,13 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseListInterfaceInfoVO = {
+    code?: number;
+    data?: InterfaceInfoVO[];
+    message?: string;
+  };
+
+
   type BaseResponseListInterfaceInfo_ = {
     code?: number;
     data?: InterfaceInfo[];
@@ -157,6 +164,24 @@ declare namespace API {
     url?: string;
     userId?: number;
   };
+
+  type InterfaceInfoVO = {
+    createTime?: string;
+    description?: string;
+    id?: number;
+    isDelete?: number;
+    method?: string;
+    name?: string;
+    requestHeader?: string;
+    requestParams?: string;
+    responseHeader?: string;
+    status?: number;
+    totalNum?: number;
+    updateTime?: string;
+    url?: string;
+    userId?: number;
+  };
+
 
   type InterfaceInfoAddRequest = {
     description?: string;
